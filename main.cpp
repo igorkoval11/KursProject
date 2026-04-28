@@ -2,6 +2,6 @@
 #include "Common.h"
 
 int main() {
-    std::cout << "Hello, progers" << std::endl;
+    std::cout << "Чипотле" << std::endl;
     return 0;
 }
