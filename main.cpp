@@ -13,46 +13,48 @@ using namespace std;
 #include "IoTDevice.h"
 #include "Power_Grid.h"
 #include "TrafficLight.h"
+#include "Logger.h"
 
 
-int main() {
+int main() { 
+
+    Logger::setLogToConsole(true);   
+    Logger::setLogToFile(true);        
+    
     Hub2 hub;
     PowerGrid grid;
 
     vector<shared_ptr<IoTDevice>> allDevices;
 
-    // 20 датчиков воздуха
     for (int i = 1; i <= 20; i++) {
         auto sensor = make_shared<AirSensor>("Датчик-" + to_string(i));
         hub.addDevice(sensor);
         allDevices.push_back(sensor);
     }
 
-    // 10 светофоров
     for (int i = 1; i <= 10; i++) {
         auto light = make_shared<TrafficLight>("Светофор-" + to_string(i));
         hub.addDevice(light);
         allDevices.push_back(light);
     }
 
-    cout << " Запуск симуляции умного города " << endl;
-    cout << "Устройств в сети: " << allDevices.size() << endl;
-    cout << "=======================================" << endl << endl;
+    Logger::info("Запуск симуляции умного города");
+    Logger::info("Устройств в сети: " + to_string(allDevices.size()));
+    Logger::info("=======================================");
 
     for (int i = 1; i <= 20; i++) {
-        cout << "--- Шаг " << i << " ---" << endl;
+        Logger::info("--- Шаг " + to_string(i) + " ---");
 
-        // 1. Обновляем все устройства через хаб
         hub.tick();
-
-        // 2. Проверяем электросеть
         grid.checkLimits(allDevices);
-
-        cout << endl;
 
         this_thread::sleep_for(chrono::milliseconds(500));
     }
 
-    cout << "=== Симуляция завершена ===" << endl;
+    Logger::info("=== Симуляция завершена ===");
+    
+    cout << "\nНажмите Enter для выхода...";
+    cin.get();
+    
     return 0;
 }
