@@ -11,8 +11,8 @@ class TrafficLight: public IoTDevice{
 private:
     bool isRed;
 public:
-    TrafficLight(std::string name):
-        IoTDevice(name,20)
+    TrafficLight(std::string name,int power = 20):
+        IoTDevice(std::move(name),power)
     {
         isRed=true;
     }

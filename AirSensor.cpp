@@ -18,7 +18,7 @@ void AirSensor::update() {
     int level = dis(gen);
     std::cout << "Уровень грязи: " << level << "%" << std::endl;
 
-    if (level > 70) {
+    if (level > alarmThreshold) {
         std::cout << "ALARM" << std::endl;
     }
 }

@@ -8,8 +8,10 @@
 #include "IoTDevice.h"
 
 class AirSensor : public IoTDevice {
+    int alarmThreshold;
 public:
-    explicit AirSensor(std::string name) : IoTDevice(std::move(name), 15) {}
+    explicit AirSensor(std::string name, int threshold = 70, int power=15)
+        : IoTDevice(std::move(name),power), alarmThreshold(threshold){}
     void update() override;
 };
 
