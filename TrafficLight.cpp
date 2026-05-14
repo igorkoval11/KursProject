@@ -1,14 +1,13 @@
 //
 // Created by Artemiy on 2.05.26.
 //
-#include <iostream>
+#include "Logger.h"
 #include "TrafficLight.h"
 using namespace std;
 
 void TrafficLight::update() {
     isRed = !isRed;
-    cout << "[" << name << "] "
-         << (isRed ? "Красный" : "Зеленый") << endl;
+    Logger::info("[" + name + "] " + (isRed ? "Красный" : "Зеленый"));
     consumeEnergy();
 }
 
