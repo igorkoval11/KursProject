@@ -16,20 +16,22 @@ using namespace std;
 
 
 int main() {
+    const int NUM_SENSORS = 20;
+    const int NUM_LIGHTS = 10;
+    const int SIM_STEPS = 20;
+    const int STEP_DELAY_MS = 500;
     Hub2 hub;
     PowerGrid grid;
 
     vector<shared_ptr<IoTDevice>> allDevices;
 
-    // 20 датчиков воздуха
-    for (int i = 1; i <= 20; i++) {
+    for (int i = 1; i <= NUM_SENSORS; i++) {
         auto sensor = make_shared<AirSensor>("Датчик-" + to_string(i));
         hub.addDevice(sensor);
         allDevices.push_back(sensor);
     }
 
-    // 10 светофоров
-    for (int i = 1; i <= 10; i++) {
+    for (int i = 1; i <= NUM_LIGHTS; i++) {
         auto light = make_shared<TrafficLight>("Светофор-" + to_string(i));
         hub.addDevice(light);
         allDevices.push_back(light);
@@ -39,7 +41,7 @@ int main() {
     cout << "Устройств в сети: " << allDevices.size() << endl;
     cout << "=======================================" << endl << endl;
 
-    for (int i = 1; i <= 20; i++) {
+    for (int i = 1; i <= SIM_STEPS; i++) {
         cout << "--- Шаг " << i << " ---" << endl;
 
         // 1. Обновляем все устройства через хаб
@@ -50,7 +52,7 @@ int main() {
 
         cout << endl;
 
-        this_thread::sleep_for(chrono::milliseconds(500));
+        this_thread::sleep_for(chrono::milliseconds(STEP_DELAY_MS));
     }
 
     cout << "=== Симуляция завершена ===" << endl;
