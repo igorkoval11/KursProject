@@ -18,7 +18,7 @@ void AirSensor::update() {
     int level = dis(gen);
     Logger::info("Уровень грязи: " + std::to_string(level) + "%");
 
-    if (level > 70) {
-        Logger::warn("ALARM");  
+    if (level > alarmThreshold) {
+        Logger::warn("ALARM");
     }
 }

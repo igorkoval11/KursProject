@@ -11,20 +11,15 @@ class TrafficLight: public IoTDevice{
 private:
     bool isRed;
 public:
-    TrafficLight(std::string name):
-        IoTDevice(name,20)
+    TrafficLight(std::string name, int power = 20)
+        : IoTDevice(std::move(name), power, 1) // приоритет 1 — критический
     {
-        isRed=true;
+        isRed = true;
     }
 
     void update() override;
     void turnOff() override;
-    bool isOn() const  override;
-
-
-
+    bool isOn() const override;
 };
-
-
 
 #endif

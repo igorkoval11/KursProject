@@ -57,11 +57,6 @@ void Logger::setLogToFile(bool enable) {
     auto& inst = getInstance();
     if (enable && !inst.logFile.is_open()) {
         inst.logFile.open("log.txt", std::ios::out | std::ios::app);
-        if (inst.logFile.is_open()) {
-            std::cout << "[LOG] log.txt открыт" << std::endl;
-        } else {
-            std::cerr << "[LOG] ОШИБКА: не могу открыть log.txt" << std::endl;
-        }
     } else if (!enable && inst.logFile.is_open()) {
         inst.logFile.close();
     }
