@@ -10,9 +10,10 @@
 class AirSensor : public IoTDevice {
     int alarmThreshold;
 public:
-    explicit AirSensor(std::string name, int threshold = 70, int power=15)
-        : IoTDevice(std::move(name),power), alarmThreshold(threshold){}
+    explicit AirSensor(std::string name, int threshold = 70, int power = 15)
+        : IoTDevice(std::move(name), power, 3), // приоритет 3 — некритический
+          alarmThreshold(threshold){}
     void update() override;
 };
 
-#endif //KURSPROJECT_AIRSENSOR_H
+#endif
