@@ -1,7 +1,6 @@
 //
 // Created by matvl on 05.05.2026.
 //
-
 #include "Power_Grid.h"
 #include "Logger.h"
 #include <algorithm>
@@ -17,7 +16,7 @@ void PowerGrid::checkLimits(const std::vector<std::shared_ptr<IoTDevice>>& devic
     if (total > limit) {
         Logger::error("[Сеть] ПЕРЕГРУЗКА! Отключаем устройства...");
 
-        // Копируем включённые устройства для сортировки
+        
         std::vector<std::shared_ptr<IoTDevice>> sortedDevices;
         for (auto& dev : devices) {
             if (dev->isOn()) {
@@ -25,13 +24,13 @@ void PowerGrid::checkLimits(const std::vector<std::shared_ptr<IoTDevice>>& devic
             }
         }
 
-        // Сортируем: сначала некритические (приоритет 3), потом важные (приоритет 1)
+        /
         std::sort(sortedDevices.begin(), sortedDevices.end(),
             [](const std::shared_ptr<IoTDevice>& a, const std::shared_ptr<IoTDevice>& b) {
-                return a->getPriority() > b->getPriority(); // по убыванию приоритета
+                return a->getPriority() > b->getPriority(); 
             });
 
-        // Отключаем по порядку
+        
         for (auto& dev : sortedDevices) {
             if (total <= limit) break;
             int powerBefore = dev->getEnergy();

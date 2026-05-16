@@ -1,7 +1,6 @@
 //
 // Created by matvl on 04.05.2026.
 //
-
 #ifndef KURSPROJECT_AIRSENSOR_H
 #define KURSPROJECT_AIRSENSOR_H
 

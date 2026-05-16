@@ -1,7 +1,6 @@
 //
 // Created by Artemiy on 1.05.26.
 //
-
 #ifndef KURSPROJECT_IOTDEVICE_H
 #define KURSPROJECT_IOTDEVICE_H
 #include <string>
@@ -11,7 +10,7 @@ protected:
     int power_consumption;
     int energy_consumed = 0;
     std::string name;
-    int priority; // 1 = критическое, чем больше — тем менее важное
+    int priority; 
 public:
     IoTDevice(std::string name, int power, int priority = 3)
         : name(name), power_consumption(power), priority(priority){}
