@@ -13,6 +13,7 @@ using namespace std;
 #include "IoTDevice.h"
 #include "Power_Grid.h"
 #include "TrafficLight.h"
+#include "Logger.h"
 
 
 int main() {
@@ -20,6 +21,10 @@ int main() {
     const int NUM_LIGHTS = 10;
     const int SIM_STEPS = 20;
     const int STEP_DELAY_MS = 500;
+
+    Logger::setLogToConsole(true);
+    Logger::setLogToFile(true);
+
     Hub2 hub;
     PowerGrid grid;
 
@@ -37,24 +42,23 @@ int main() {
         allDevices.push_back(light);
     }
 
-    cout << " Запуск симуляции умного города " << endl;
-    cout << "Устройств в сети: " << allDevices.size() << endl;
-    cout << "=======================================" << endl << endl;
+    Logger::info("Запуск симуляции умного города");
+    Logger::info("Устройств в сети: " + to_string(allDevices.size()));
+    Logger::info("=======================================");
 
     for (int i = 1; i <= SIM_STEPS; i++) {
-        cout << "--- Шаг " << i << " ---" << endl;
+        Logger::info("--- Шаг " + to_string(i) + " ---");
 
-        // 1. Обновляем все устройства через хаб
         hub.tick();
-
-        // 2. Проверяем электросеть
         grid.checkLimits(allDevices);
-
-        cout << endl;
 
         this_thread::sleep_for(chrono::milliseconds(STEP_DELAY_MS));
     }
 
-    cout << "=== Симуляция завершена ===" << endl;
+    Logger::info("=== Симуляция завершена ===");
+    
+    cout << "\nНажмите Enter для выхода...";
+    cin.get();
+    
     return 0;
 }
