@@ -3,7 +3,7 @@
 //
 
 #include "AirSensor.h"
-#include <iostream>
+#include "Logger.h"
 #include <random>
 
 void AirSensor::update() {
@@ -16,9 +16,9 @@ void AirSensor::update() {
     std::uniform_int_distribution<> dis(1, 100);
 
     int level = dis(gen);
-    std::cout << "Уровень грязи: " << level << "%" << std::endl;
+    Logger::info("Уровень грязи: " + std::to_string(level) + "%");
 
     if (level > alarmThreshold) {
-        std::cout << "ALARM" << std::endl;
+        Logger::warn("ALARM");
     }
 }
