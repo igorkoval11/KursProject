@@ -430,4 +430,5 @@ FodyWeavers.xsd
 *.msp
 .idea/
 
-cmake-build-*/
+cmake-build-*/log.txt
+*
