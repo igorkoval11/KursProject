@@ -1,7 +1,6 @@
 //
 // Created by matvl on 04.05.2026.
 //
-
 #include "AirSensor.h"
 #include "Logger.h"
 #include <random>

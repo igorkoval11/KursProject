@@ -1,7 +1,6 @@
 //
 // Created by matvl on 03.05.2026.
 //
-
 #ifndef KURSPROJECT_HUB2_H
 #define KURSPROJECT_HUB2_H
 
@@ -18,4 +17,4 @@ public:
     void tick();
 };
 
-#endif //KURSPROJECT_HUB2_H
+#endif 

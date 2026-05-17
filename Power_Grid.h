@@ -1,7 +1,6 @@
 //
 // Created by matvl on 05.05.2026.
 //
-
 #ifndef KURSPROJECT_POWERGRID_H
 #define KURSPROJECT_POWERGRID_H
 
@@ -18,4 +17,4 @@ public:
     void checkLimits(const std::vector<std::shared_ptr<IoTDevice>>& devices);
 };
 
-#endif //KURSPROJECT_POWERGRID_H
+#endif 
