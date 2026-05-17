@@ -15,4 +15,9 @@ add_executable(KursProject
         TrafficLight.cpp
         TrafficLight.h
         Power_Grid.cpp
-        Power_Grid.h)
+        Power_Grid.h
+        TemperatureSensors.cpp
+        TemperatureSensors.h
+        Logger.cpp
+        Logger.h
+        )

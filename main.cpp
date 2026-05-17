@@ -14,11 +14,13 @@ using namespace std;
 #include "Power_Grid.h"
 #include "TrafficLight.h"
 #include "Logger.h"
+#include "TemperatureSensors.h"
 
 
 int main() {
     const int NUM_SENSORS = 20;
     const int NUM_LIGHTS = 10;
+    const int NUM_TEMP_SENSORS = 5;
     const int SIM_STEPS = 20;
     const int STEP_DELAY_MS = 500;
 
@@ -40,6 +42,13 @@ int main() {
         auto light = make_shared<TrafficLight>("Светофор-" + to_string(i));
         hub.addDevice(light);
         allDevices.push_back(light);
+    }
+
+    for (int i = 1; i <= NUM_TEMP_SENSORS; i++) {
+        auto tempSensor = make_shared<TemperatureSensor>(
+            "ТемпДатчик-" + to_string(i));
+        hub.addDevice(tempSensor);
+        allDevices.push_back(tempSensor);
     }
 
     Logger::info("Запуск симуляции умного города");
