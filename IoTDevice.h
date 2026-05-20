@@ -10,14 +10,15 @@ protected:
     int power_consumption;
     int energy_consumed = 0;
     std::string name;
-    int priority; 
+    int priority;
+    bool critical;
 public:
-    IoTDevice(std::string name, int power, int priority = 3)
-        : name(name), power_consumption(power), priority(priority){}
+    IoTDevice(std::string name, int power, int priority = 3, bool critical = false)
+        : name(name), power_consumption(power), priority(priority), critical(critical){}
     virtual ~IoTDevice(){}
     virtual void update()=0;
     virtual void turnOff(){
-        is_on= false;
+        if (!critical) is_on = false;
     }
     virtual bool isOn() const{
         return is_on;
@@ -25,11 +26,17 @@ public:
     int getEnergy() const{
         return energy_consumed;
     }
+    int getPowerConsumption() const{
+        return power_consumption;
+    }
     int getPriority() const{
         return priority;
     }
     std::string getName() const{
         return name;
+    }
+    bool isCritical() const{
+        return critical;
     }
     void consumeEnergy() {
         if (is_on) {
