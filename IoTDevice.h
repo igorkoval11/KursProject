@@ -20,7 +20,10 @@ public:
     virtual ~IoTDevice(){}
     virtual void update()=0;
     virtual void turnOff(){
-        is_on= false;
+        is_on = false;
+    }
+    virtual void turnOn(){
+        is_on = true;
     }
     virtual bool isOn() const{
         return is_on;
@@ -30,6 +33,12 @@ public:
     }
     int getEnergy() const{
         return energy_consumed;
+    }
+    int getPowerConsumption() const{
+        return power_consumption;
+    }
+    int getBasePower() const{
+        return base_power;
     }
     int getPriority() const{
         return priority;
