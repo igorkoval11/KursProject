@@ -19,12 +19,11 @@ void PowerGrid::checkLimits(const std::vector<std::shared_ptr<IoTDevice>>& devic
         
         std::vector<std::shared_ptr<IoTDevice>> sortedDevices;
         for (auto& dev : devices) {
-            if (dev->isOn()) {
+            if (dev->isOn() && dev->canBeTurnedOff()) {
                 sortedDevices.push_back(dev);
             }
         }
 
-        /
         std::sort(sortedDevices.begin(), sortedDevices.end(),
             [](const std::shared_ptr<IoTDevice>& a, const std::shared_ptr<IoTDevice>& b) {
                 return a->getPriority() > b->getPriority(); 
