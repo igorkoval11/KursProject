@@ -8,7 +8,7 @@
 void PowerGrid::checkLimits(const std::vector<std::shared_ptr<IoTDevice>>& devices) {
     int total = 0;
     for (auto& dev : devices) {
-        if (dev->isOn()) total += dev->getEnergy();
+        if (dev->isOn()) total += dev->getPowerConsumption();
     }
 
     Logger::info("[Сеть] Суммарное потребление: " + std::to_string(total) + " Вт");
@@ -29,8 +29,15 @@ void PowerGrid::checkLimits(const std::vector<std::shared_ptr<IoTDevice>>& devic
         } else {
             std::sort(toDisconnect.begin(), toDisconnect.end(),
                 [](const std::shared_ptr<IoTDevice>& a, const std::shared_ptr<IoTDevice>& b) {
-                    if (a->getPriority() != b->getPriority())
-                        return a->getPriority() > b->getPriority();
+                    auto shutdownOrder = [](int p) {
+                        if (p == 3) return 0; // Датчики грязи (приоритет 3) — первые на отключение
+                        if (p == 1) return 1; // Светофоры (приоритет 1) — вторые на отключение
+                        return 2;             // Все остальные (например, температурные датчики, если они попадут сюда)
+                    };
+                    int orderA = shutdownOrder(a->getPriority());
+                    int orderB = shutdownOrder(b->getPriority());
+                    if (orderA != orderB)
+                        return orderA < orderB;
                     return a->getPowerConsumption() > b->getPowerConsumption();
                 });
 
@@ -40,7 +47,7 @@ void PowerGrid::checkLimits(const std::vector<std::shared_ptr<IoTDevice>>& devic
                 dev->turnOff();
                 total = 0;
                 for (auto& d : devices) {
-                    if (d->isOn()) total += d->getEnergy();
+                    if (d->isOn()) total += d->getPowerConsumption();
                 }
                 Logger::warn("[Сеть] Отключён " + dev->getName() +
                              " (потребление: " + std::to_string(currentPower) + " Вт" +
