@@ -35,7 +35,7 @@ public:
         return energy_consumed;
     }
     int getPowerConsumption() const{
-        return power_consumption;
+        return is_on ? power_consumption : 0;
     }
     int getBasePower() const{
         return base_power;
