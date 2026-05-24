@@ -10,23 +10,16 @@ void TrafficLight::update() {
 
     phaseTimer++;
 
-    int maxTicks = 0;
-    switch (currentPhase) {
-        case Phase::RED:    maxTicks = redDuration; break;
-        case Phase::YELLOW: maxTicks = yellowDuration; break;
-        case Phase::GREEN:  maxTicks = greenDuration; break;
-    }
+    const PhaseConfig& currentConfig = schedule[currentPhaseIndex];
 
-    if (phaseTimer >= maxTicks) {
+    if (phaseTimer >= currentConfig.ticks) {
         phaseTimer = 0;
-        switch (currentPhase) {
-            case Phase::RED:    currentPhase = Phase::GREEN; break;
-            case Phase::GREEN:  currentPhase = Phase::YELLOW; break;
-            case Phase::YELLOW: currentPhase = Phase::RED; break;
-        }
+        currentPhaseIndex = (currentPhaseIndex + 1) % schedule.size();
     }
 
-    Logger::info("[" + name + "] Фаза: " + phaseToString(currentPhase));
+    const PhaseConfig& newConfig = schedule[currentPhaseIndex];
+    Logger::info("[" + name + "] Фаза: " + phaseToString(newConfig.phase) +
+                 " (осталось тиков: " + to_string(newConfig.ticks - phaseTimer) + ")");
     consumeEnergy();
 }
 

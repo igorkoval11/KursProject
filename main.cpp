@@ -6,6 +6,7 @@
 #include <memory>
 #include <thread>
 #include <chrono>
+#include <random>
 using namespace std;
 
 #include "AirSensor.h"
@@ -38,8 +39,20 @@ int main() {
         allDevices.push_back(sensor);
     }
 
-    for (int i = 1; i <= NUM_LIGHTS; i++) {
-        auto light = make_shared<TrafficLight>("Светофор-" + to_string(i));
+    // Случайные расписания для светофоров
+    random_device rd;
+    mt19937 gen(rd());
+    uniform_int_distribution<> redDis(1, 5);
+    uniform_int_distribution<> greenDis(1, 5);
+    uniform_int_distribution<> yellowDis(1, 3);
+
+    for (int i = 0; i < NUM_LIGHTS; i++) {
+        vector<TrafficLight::PhaseConfig> schedule = {
+            {TrafficLight::Phase::RED, redDis(gen)},
+            {TrafficLight::Phase::GREEN, greenDis(gen)},
+            {TrafficLight::Phase::YELLOW, yellowDis(gen)}
+        };
+        auto light = make_shared<TrafficLight>("Светофор-" + to_string(i + 1), 20, schedule);
         hub.addDevice(light);
         allDevices.push_back(light);
     }
