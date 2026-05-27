@@ -78,17 +78,21 @@ void PowerGrid::checkLimits(const std::vector<std::shared_ptr<IoTDevice>>& devic
             });
 
         for (auto& dev : offDevices) {
-            // Оценка потребления через base_power с учётом температуры
-            double temp = IoTDevice::getCurrentTemperature();
-            int estimatedPower = static_cast<int>(dev->getBasePower() * (1.0 + std::abs(temp - 20.0) * 0.012));
+            dev->turnOn();
+            dev->refreshPowerConsumption();
+            int currentPower = dev->getPowerConsumption();
 
-            if (total + estimatedPower <= limit) {
-                dev->turnOn();
-                total += estimatedPower;
+            if (total + currentPower <= limit) {
+                total += currentPower;
                 Logger::info("[Сеть] Включён " + dev->getName() +
-                             " (потребление: ~" + std::to_string(estimatedPower) + " Вт" +
+                             " (потребление: " + std::to_string(currentPower) + " Вт" +
                              ", приоритет: " + std::to_string(dev->getPriority()) + ")" +
                              ", резерв: " + std::to_string(limit - total) + " Вт");
+            } else {
+                dev->turnOff();
+                Logger::warn("[Сеть] Недостаточно резерва для включения " + dev->getName() +
+                             " (нужно: " + std::to_string(currentPower) + " Вт" +
+                             ", резерв: " + std::to_string(limit - total) + " Вт)");
             }
         }
     }
