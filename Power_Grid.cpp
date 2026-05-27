@@ -79,8 +79,7 @@ void PowerGrid::checkLimits(const std::vector<std::shared_ptr<IoTDevice>>& devic
 
         for (auto& dev : offDevices) {
             // Оценка потребления через base_power с учётом температуры
-            double temp = IoTDevice::getCurrentTemperature();
-            int estimatedPower = static_cast<int>(dev->getBasePower() * (1.0 + std::abs(temp - 20.0) * 0.012));
+            int estimatedPower = dev->calculatePowerConsumption();
 
             if (total + estimatedPower <= limit) {
                 dev->turnOn();
@@ -96,8 +95,9 @@ void PowerGrid::checkLimits(const std::vector<std::shared_ptr<IoTDevice>>& devic
     // --- РЕЗЕРВ ---
     int reserve = limit - total;
     int reservePercent = (limit > 0) ? (reserve * 100 / limit) : 0;
-    int lightPower = 20;
-    int sensorPower = 15;
+    double powerMultiplier = IoTDevice::getTemperaturePowerMultiplier();
+    int lightPower = static_cast<int>(20 * powerMultiplier);
+    int sensorPower = static_cast<int>(15 * powerMultiplier);
     int possibleLights = (reserve > 0) ? reserve / lightPower : 0;
     int possibleSensors = (reserve > 0) ? reserve / sensorPower : 0;
 
