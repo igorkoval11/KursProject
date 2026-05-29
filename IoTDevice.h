@@ -40,6 +40,13 @@ public:
     int getBasePower() const{
         return base_power;
     }
+    int calculatePowerConsumption() const{
+        double temp = getCurrentTemperature();
+        return static_cast<int>(base_power * (1.0 + std::abs(temp - 20.0) * 0.012));
+    }
+    void refreshPowerConsumption(){
+        power_consumption = calculatePowerConsumption();
+    }
     int getPriority() const{
         return priority;
     }
@@ -52,8 +59,7 @@ public:
     }
     void consumeEnergy() {
         if (is_on) {
-            double temp = getCurrentTemperature();
-            power_consumption = static_cast<int>(base_power * (1.0 + std::abs(temp - 20.0) * 0.012));
+            refreshPowerConsumption();
             energy_consumed += power_consumption;
         }
     }
