@@ -17,9 +17,13 @@ void TrafficLight::update() {
         currentPhaseIndex = (currentPhaseIndex + 1) % schedule.size();
     }
 
-    Logger::info("[" + name + "] Фаза: " + phaseToString(getCurrentPhase()) +
-                 " (осталось тиков: " + to_string(schedule[currentPhaseIndex].ticks - phaseTimer) + ")");
+    // Потребление фиксированное
+    power_consumption = base_power;
     consumeEnergy();
+
+    Logger::info("[" + name + "] Фаза: " + phaseToString(getCurrentPhase()) +
+                 " (осталось тиков: " + to_string(schedule[currentPhaseIndex].ticks - phaseTimer) + ")" +
+                 " | Потребление: " + to_string(power_consumption) + " Вт (фикс.)");
 }
 
 void TrafficLight::turnOff() {
