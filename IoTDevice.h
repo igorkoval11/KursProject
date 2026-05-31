@@ -43,6 +43,9 @@ public:
     int calculatePowerConsumption() const{
         return static_cast<int>(base_power * getTemperaturePowerMultiplier());
     }
+    void refreshPowerConsumption(){
+        power_consumption = calculatePowerConsumption();
+    }
     int getPriority() const{
         return priority;
     }
@@ -59,7 +62,7 @@ public:
     }
     void consumeEnergy() {
         if (is_on) {
-            power_consumption = calculatePowerConsumption();
+            refreshPowerConsumption();
             energy_consumed += power_consumption;
         }
     }
