@@ -20,7 +20,6 @@ using namespace std;
 int main() {
     const int NUM_SENSORS      = 20;
     const int NUM_LIGHTS       = 10;
-    const int NUM_TEMP_SENSORS = 5;
     const int SIM_STEPS        = 20;
     const int STEP_DELAY_MS    = 500;
 
@@ -31,6 +30,9 @@ int main() {
     PowerGrid grid;
     vector<shared_ptr<IoTDevice>> allDevices;
 
+    auto tempSensor = make_shared<TemperatureSensor>("ТемпДатчик-1");
+    hub.addDevice(tempSensor);
+    allDevices.push_back(tempSensor);
     for (int i = 1; i <= NUM_SENSORS; i++) {
         auto sensor = make_shared<AirSensor>("Датчик-" + to_string(i));
         hub.addDevice(sensor);
@@ -40,12 +42,6 @@ int main() {
         auto light = make_shared<TrafficLight>("Светофор-" + to_string(i));
         hub.addDevice(light);
         allDevices.push_back(light);
-    }
-    for (int i = 1; i <= NUM_TEMP_SENSORS; i++) {
-        auto tempSensor = make_shared<TemperatureSensor>(
-            "ТемпДатчик-" + to_string(i));
-        hub.addDevice(tempSensor);
-        allDevices.push_back(tempSensor);
     }
 
     Logger::info("Запуск симуляции умного города");
