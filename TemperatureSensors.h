@@ -2,7 +2,6 @@
 // Created by Artemiy on 17.05.26.
 //
 
-
 #ifndef KURSPROJECT_TEMPERATURESENSORS_H
 #define KURSPROJECT_TEMPERATURESENSORS_H
 #include "IoTDevice.h"
@@ -18,5 +17,10 @@ public:
     void turnOff() override;
     bool isOn() const override;
     bool canBeTurnedOff() const override;
+
+    // Переопределяем refreshPowerConsumption: зависит от температуры
+    void refreshPowerConsumption(){
+        power_consumption = calculatePowerConsumptionByTemp();
+    }
 };
 #endif //KURSPROJECT_TEMPERATURESENSORS_H

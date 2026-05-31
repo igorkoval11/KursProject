@@ -45,8 +45,13 @@ public:
         return schedule[currentPhaseIndex].phase;
     }
 
-private:
+    // Публичный метод для использования в AirSensor
     std::string phaseToString(Phase phase) const;
+
+    // Потребление фиксированное — не зависит от температуры
+    void refreshPowerConsumption() {
+        power_consumption = base_power;
+    }
 };
 
 #endif
