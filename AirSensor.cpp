@@ -1,6 +1,7 @@
 //
 // Created by matvl on 04.05.2026.
 //
+
 #include "AirSensor.h"
 #include "Logger.h"
 #include <random>
@@ -15,9 +16,10 @@ void AirSensor::update() {
     std::uniform_int_distribution<> dis(1, 100);
 
     int level = dis(gen);
-    Logger::info("Уровень грязи: " + std::to_string(level) + "%");
+
+    Logger::info("[" + name + "] Уровень грязи: " + std::to_string(level) + "%");
 
     if (level > alarmThreshold) {
-        Logger::warn("ALARM");
+        Logger::warn("[" + name + "] ALARM");
     }
 }

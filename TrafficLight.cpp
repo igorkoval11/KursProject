@@ -1,8 +1,10 @@
 //
 // Created by Artemiy on 2.05.26.
 //
+
 #include "Logger.h"
 #include "TrafficLight.h"
+
 using namespace std;
 
 void TrafficLight::update() {
@@ -10,15 +12,23 @@ void TrafficLight::update() {
 
     phaseTimer++;
 
-    const PhaseConfig& currentConfig = schedule[currentPhaseIndex];
-
-    if (phaseTimer >= currentConfig.ticks) {
-        phaseTimer = 0;
-        currentPhaseIndex = (currentPhaseIndex + 1) % schedule.size();
+    int maxTicks = 0;
+    switch (currentPhase) {
+        case Phase::RED:    maxTicks = redDuration;    break;
+        case Phase::YELLOW: maxTicks = yellowDuration; break;
+        case Phase::GREEN:  maxTicks = greenDuration;  break;
     }
 
-    Logger::info("[" + name + "] Фаза: " + phaseToString(getCurrentPhase()) +
-                 " (осталось тиков: " + to_string(schedule[currentPhaseIndex].ticks - phaseTimer) + ")");
+    if (phaseTimer >= maxTicks) {
+        phaseTimer = 0;
+        switch (currentPhase) {
+            case Phase::RED:    currentPhase = Phase::GREEN;  break;
+            case Phase::GREEN:  currentPhase = Phase::YELLOW; break;
+            case Phase::YELLOW: currentPhase = Phase::RED;    break;
+        }
+    }
+
+    Logger::info("[" + name + "] Фаза: " + phaseToString(currentPhase));
     consumeEnergy();
 }
 
