@@ -41,8 +41,7 @@ public:
         return base_power;
     }
     int calculatePowerConsumption() const{
-        double temp = getCurrentTemperature();
-        return static_cast<int>(base_power * (1.0 + std::abs(temp - 20.0) * 0.012));
+        return static_cast<int>(base_power * getTemperaturePowerMultiplier());
     }
     void refreshPowerConsumption(){
         power_consumption = calculatePowerConsumption();
@@ -56,6 +55,10 @@ public:
     static double& getCurrentTemperature() {
         static double temp = 20.0;
         return temp;
+    }
+    static double getTemperaturePowerMultiplier() {
+        double temp = getCurrentTemperature();
+        return (temp < -5.0 || temp > 35.0) ? 1.2 : 1.0;
     }
     void consumeEnergy() {
         if (is_on) {
