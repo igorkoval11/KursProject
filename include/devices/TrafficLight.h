@@ -3,7 +3,7 @@
 //
 #ifndef KURSPROJECT_TRAFFICLIGHT_H
 #define KURSPROJECT_TRAFFICLIGHT_H
-#include "devices/IoTDevice.h"
+#include "include/devices/IoTDevice.h"
 #include <string>
 #include <vector>
 #include <random>

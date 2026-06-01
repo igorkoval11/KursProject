@@ -4,7 +4,7 @@
 #ifndef KURSPROJECT_AIRSENSOR_H
 #define KURSPROJECT_AIRSENSOR_H
 
-#include "devices/IoTDevice.h"
+#include "include/devices/IoTDevice.h"
 
 class AirSensor : public IoTDevice {
     int alarmThreshold;

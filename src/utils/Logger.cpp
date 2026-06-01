@@ -1,4 +1,4 @@
-#include "utils/Logger.h"
+#include "include/utils/Logger.h"
 #include <vector>
 #include <algorithm>
 
@@ -61,7 +61,7 @@ void Logger::setLogToConsole(bool enable) { getInstance().logToConsole = enable;
 void Logger::setLogToFile(bool enable) {
     auto& inst = getInstance();
     if (enable && !inst.logFile.is_open()) {
-        inst.logFile.open("log.txt", std::ios::out | std::ios::app);
+        inst.logFile.open("../log.txt", std::ios::out | std::ios::app);
     } else if (!enable && inst.logFile.is_open()) {
         inst.logFile.close();
     }

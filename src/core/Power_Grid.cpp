@@ -1,8 +1,8 @@
 //
 // Created by matvl on 05.05.2026.
 //
-#include "core/Power_Grid.h"
-#include "utils/Logger.h"
+#include "include/core/Power_Grid.h"
+#include "include/utils/Logger.h"
 #include <algorithm>
 
 void PowerGrid::checkLimits(const std::vector<std::shared_ptr<IoTDevice>>& devices) {

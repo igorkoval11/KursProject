@@ -9,13 +9,13 @@
 #include <chrono>
 using namespace std;
 
-#include "devices/AirSensor.h"
-#include "core/HUB2.h"
-#include "devices/IoTDevice.h"
-#include "core/Power_Grid.h"
-#include "devices/TrafficLight.h"
-#include "utils/Logger.h"
-#include "devices/TemperatureSensors.h"
+#include "include/devices/AirSensor.h"
+#include "include/core/HUB2.h"
+#include "include/devices/IoTDevice.h"
+#include "include/core/Power_Grid.h"
+#include "include/devices/TrafficLight.h"
+#include "include/utils/Logger.h"
+#include "include/devices/TemperatureSensors.h"
 
 int main() {
     const int NUM_SENSORS      = 20;

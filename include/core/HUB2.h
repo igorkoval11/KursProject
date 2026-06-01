@@ -6,7 +6,7 @@
 
 #include <vector>
 #include <memory>
-#include "devices/IoTDevice.h"
+#include "include/devices/IoTDevice.h"
 
 class Hub2 {
 private:

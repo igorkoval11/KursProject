@@ -1,8 +1,8 @@
 //
 // Created by Artemiy on 2.05.26.
 //
-#include "utils/Logger.h"
-#include "devices/TrafficLight.h"
+#include "include/utils/Logger.h"
+#include "include/devices/TrafficLight.h"
 using namespace std;
 
 void TrafficLight::update() {

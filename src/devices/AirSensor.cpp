@@ -1,8 +1,8 @@
 //
 // Created by matvl on 04.05.2026.
 //
-#include "devices/AirSensor.h"
-#include "utils/Logger.h"
+#include "include/devices/AirSensor.h"
+#include "include/utils/Logger.h"
 #include <random>
 
 void AirSensor::update() {

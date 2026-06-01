@@ -5,7 +5,7 @@
 
 #ifndef KURSPROJECT_TEMPERATURESENSORS_H
 #define KURSPROJECT_TEMPERATURESENSORS_H
-#include "devices/IoTDevice.h"
+#include "include/devices/IoTDevice.h"
 
 
 class TemperatureSensor : public IoTDevice {

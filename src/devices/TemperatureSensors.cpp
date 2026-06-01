@@ -1,8 +1,8 @@
 //
 // Created by Artemiy on 17.05.26.
 //
-#include "devices/TemperatureSensors.h"
-#include "utils/Logger.h"
+#include "include/devices/TemperatureSensors.h"
+#include "include/utils/Logger.h"
 #include <random>
 void TemperatureSensor::update() {
     std::random_device rd;
